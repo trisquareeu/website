@@ -9,7 +9,7 @@ export class Posts {
 
   constructor() {
     const postSlugs = readdirSync(this.postsPath);
-    this.posts = postSlugs.map((slug) => new Post(join(this.postsPath, slug)));
+    this.posts = postSlugs.map((post) => new Post(this.postsPath, post));
   }
 
   public getSlugs(): { slug: string }[] {

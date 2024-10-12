@@ -1,17 +1,17 @@
 import { readFileSync } from 'fs';
+import { join } from 'path';
 
 export class Post {
   private readonly content: string;
   private readonly slug: string;
 
-  constructor(path: string) {
-    this.content = readFileSync(path, 'utf8');
-    const lastPartOfPath = path.split('\\').at(-1);
-    if (!lastPartOfPath) {
-      throw new Error(`Invalid path for the post: ${path}`);
+  constructor(postsPath: string, post: string) {
+    if (!post.endsWith('.mdx')) {
+      throw new Error('Invalid post extension');
     }
 
-    this.slug = lastPartOfPath.replace('.mdx', '');
+    this.content = readFileSync(join(postsPath, post), 'utf8');
+    this.slug = post.replace('.mdx', '')
   }
 
   public getSlug(): string {
